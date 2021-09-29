@@ -67,7 +67,7 @@ module.exports = {
 
   output: {
     path: buildPath,
-    publicPath: '/',
+    publicPath: '/webapps/TechRadar/',
     filename: '[name].[hash].js'
   },
 
