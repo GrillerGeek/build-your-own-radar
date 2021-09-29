@@ -86,7 +86,7 @@ module.exports = {
         }, 
         {
           loader: 'css-loader',
-          options: { importLoaders: 1, url: false }
+          options: { importLoaders: 1, url: true, sourceMap: true }
         },
         {
           loader: 'postcss-loader',
@@ -96,26 +96,32 @@ module.exports = {
                   postcssPresetEnv({ browsers: 'last 2 versions' }),
                   cssnano({ preset: ['default', { discardComments: { removeAll: true } }] }) 
                 ]
-              }
+              },
+              sourceMap: true
             }
-        },
-        {
-          loader: "resolve-url-loader", //resolve-url-loader needs to come *BEFORE* sass-loader
-          options: {
-            sourceMap: true
-          }
-        }
+        }//,
+        // {
+        //   loader: "resolve-url-loader", //resolve-url-loader needs to come *BEFORE* sass-loader
+        //   options: {
+        //     sourceMap: true,
+        //     //root: ''
+        //   }
+        // }
         , 'sass-loader']
       },
       {
-        test: /\.(eot|svg|ttf|woff|woff2)$/,
-        use: [{ loader: 'file-loader', options: { name: "images/[name].[ext]" } }]
+        test: /\.(png|svg|jpg|jpeg|gif|ico)$/i,
+        type: 'asset/resource',
       },
-      {
-        test: /\.(png|jpg|ico)$/,
-        exclude: /node_modules/,
-        use: [{ loader: 'file-loader', options: { name: "images/[name].[ext]" , context: "./src/images" } }]
-      },
+      // {
+      //   test: /\.(eot|svg|ttf|woff|woff2)$/,
+      //   use: [{ loader: 'file-loader', options: { name: "images/[name].[ext]" } }]
+      // },
+      // {
+      //   test: /\.(png|jpg|ico)$/,
+      //   exclude: /node_modules/,
+      //   use: [{ loader: 'file-loader', options: { name: "images/[name].[ext]" , context: "./src/images" } }]
+      // },
       {
         test: require.resolve('jquery'),
         use: [{ loader: 'expose-loader', options: { exposes: ["$", "jQuery" ] } }]
