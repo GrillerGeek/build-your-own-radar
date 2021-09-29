@@ -1,11 +1,12 @@
 const d3 = require('d3')
-const d3tip = require('d3-tip')
 const Chance = require('chance')
+const { default: d3Tip } = require('d3-tip')
 const _ = require('lodash/core')
 
 const RingCalculator = require('../util/ringCalculator')
 const QueryParams = require('../util/queryParamProcessor')
 const AutoComplete = require('../util/autoComplete')
+
 
 const MIN_BLIP_WIDTH = 12
 const ANIMATION_DURATION = 1000
@@ -13,7 +14,7 @@ const ANIMATION_DURATION = 1000
 const Radar = function (size, radar) {
   var svg, radarElement, quadrantButtons, buttonsGroup, header, alternativeDiv
 
-  var tip = d3tip().attr('class', 'd3-tip').html(function (text) {
+  var tip = d3Tip().attr('class', 'd3-tip').html(function (text) {
     return text
   })
 

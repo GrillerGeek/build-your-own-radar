@@ -60,10 +60,9 @@ module.exports = {
     common: common
   },
   node: {
-    fs: 'empty',
-    net: 'empty',
-    tls: 'empty',
-    child_process: 'empty'
+    global: false,
+    __filename: false,
+    __dirname: false,
   },
 
   output: {
@@ -78,33 +77,48 @@ module.exports = {
       {
         test: /\.scss$/,
         exclude: /node_modules/,
-        use: ['style-loader', MiniCssExtractPlugin.loader, {
+        use: ['style-loader', 
+        {
+          loader: MiniCssExtractPlugin.loader, 
+          options: {
+            esModule: false,
+          } 
+        }, 
+        {
           loader: 'css-loader',
-          options: { importLoaders: 1 }
+          options: { importLoaders: 1, url: false }
         },
         {
           loader: 'postcss-loader',
+            options: {
+              postcssOptions: {
+                plugins: [
+                  postcssPresetEnv({ browsers: 'last 2 versions' }),
+                  cssnano({ preset: ['default', { discardComments: { removeAll: true } }] }) 
+                ]
+              }
+            }
+        },
+        {
+          loader: "resolve-url-loader", //resolve-url-loader needs to come *BEFORE* sass-loader
           options: {
-            ident: 'postcss',
-            plugins: () => [
-              postcssPresetEnv({ browsers: 'last 2 versions' }),
-              cssnano({ preset: ['default', { discardComments: { removeAll: true } }] })
-            ]
+            sourceMap: true
           }
-        }, 'sass-loader']
+        }
+        , 'sass-loader']
       },
       {
         test: /\.(eot|svg|ttf|woff|woff2)$/,
-        loader: 'file-loader?name=images/[name].[ext]'
+        use: [{ loader: 'file-loader', options: { name: "images/[name].[ext]" } }]
       },
       {
         test: /\.(png|jpg|ico)$/,
         exclude: /node_modules/,
-        use: [{ loader: 'file-loader?name=images/[name].[ext]&context=./src/images' }]
+        use: [{ loader: 'file-loader', options: { name: "images/[name].[ext]" , context: "./src/images" } }]
       },
       {
         test: require.resolve('jquery'),
-        use: [{ loader: 'expose-loader', options: 'jQuery' }, { loader: 'expose-loader', options: '$' }]
+        use: [{ loader: 'expose-loader', options: { exposes: ["$", "jQuery" ] } }]
       }
     ]
   },
@@ -114,7 +128,7 @@ module.exports = {
   devtool: devtool,
 
   devServer: {
-    contentBase: buildPath,
+    static: buildPath,
     host: '0.0.0.0',
     port: 8080
   }
