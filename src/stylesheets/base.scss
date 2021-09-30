@@ -13,6 +13,27 @@ body {
   margin: 0;
 }
 
+a:link {
+  color: $pink;
+  border-bottom-color: $pink;
+}
+
+a:visited {
+  color: $pink;
+  border-bottom-color: $pink;
+}
+
+a:hover {
+  color: $orange;
+  border-bottom-color: $orange;
+}
+
+a:active {
+  color: $orange;
+  border-bottom-color: $orange;
+}
+
+
 @media print {
 
   body, article {
