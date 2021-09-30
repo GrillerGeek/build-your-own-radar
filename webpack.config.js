@@ -100,14 +100,7 @@ module.exports = {
               },
               sourceMap: true
             }
-        }//,
-        // {
-        //   loader: "resolve-url-loader", //resolve-url-loader needs to come *BEFORE* sass-loader
-        //   options: {
-        //     sourceMap: true,
-        //     //root: ''
-        //   }
-        // }
+        }
         , 'sass-loader']
       },
       {
@@ -118,15 +111,6 @@ module.exports = {
         test: /\.html$/i,
         loader: "html-loader",
       },
-      // {
-      //   test: /\.(eot|svg|ttf|woff|woff2)$/,
-      //   use: [{ loader: 'file-loader', options: { name: "images/[name].[ext]" } }]
-      // },
-      // {
-      //   test: /\.(png|jpg|ico)$/,
-      //   exclude: /node_modules/,
-      //   use: [{ loader: 'file-loader', options: { name: "images/[name].[ext]" , context: "./src/images" } }]
-      // },
       {
         test: require.resolve('jquery'),
         use: [{ loader: 'expose-loader', options: { exposes: ["$", "jQuery" ] } }]
