@@ -445,7 +445,7 @@ const Radar = function (size, radar) {
       header.select('.radar-title')
       .append('div')
       .attr('class', 'radar-title__logo')
-      .html('<a href="https://www.thoughtworks.com"> <img src="assets/logo.png" /> </a>')
+      .html('<a href="https://www.burke.com"> <img src="assets/logo.png" /> </a>')
 
     buttonsGroup = header.append('div')
       .classed('buttons-group', true)
