@@ -68,7 +68,8 @@ module.exports = {
   output: {
     path: buildPath,
     publicPath: 'auto', //'/webapps/TechRadar/',
-    filename: '[name].[hash].js'
+    filename: '[name].[hash].js',
+    assetModuleFilename: 'assets/[name][ext]'
   },
 
   module: {
@@ -112,6 +113,10 @@ module.exports = {
       {
         test: /\.(png|svg|jpg|jpeg|gif|ico)$/i,
         type: 'asset/resource',
+      },
+      {
+        test: /\.html$/i,
+        loader: "html-loader",
       },
       // {
       //   test: /\.(eot|svg|ttf|woff|woff2)$/,
